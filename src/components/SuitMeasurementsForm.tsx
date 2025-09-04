@@ -141,7 +141,7 @@ export default function SuitMeasurementsForm() {
           onClick={() => {
             const payload = { units, tightness, notes, measurements: values };
             localStorage.setItem('suit-measurements', JSON.stringify(payload));
-            Cart.add({ kind: 'suit', name: 'Custom Racing Suit', price: 700, configuration: null, measurements: payload });
+            Cart.add({ kind: 'suit', name: 'Custom Racing Suit', price: 700, configuration: undefined, measurements: payload });
             window.location.assign('/cart');
           }}
           className="px-6 py-3 rounded-xl bg-gradient-to-r from-[#FF5E3A] to-[#FF3C00] font-semibold shadow-2xl hover:from-[#FF7A5C] hover:to-[#FF5120] transition"

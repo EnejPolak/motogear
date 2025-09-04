@@ -128,7 +128,12 @@ function SuitModel({ configuration, textures }: { configuration: SuitConfigurati
       const m = decalsRef.current.children.pop() as THREE.Mesh;
       if (m && m.material) {
         const mat = m.material as THREE.Material;
-        if ('map' in mat && mat.map) mat.map.dispose();
+        if ('map' in mat && mat.map) {
+          const texture = mat.map as THREE.Texture;
+          if (texture && typeof texture.dispose === 'function') {
+            texture.dispose();
+          }
+        }
         mat.dispose();
       }
       if (m) m.geometry.dispose();

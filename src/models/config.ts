@@ -115,19 +115,23 @@ export class ConfigManager {
   }
 
   private static isValidConfig(config: unknown): config is MaterialColors {
+    if (typeof config !== 'object' || config === null) {
+      return false;
+    }
+    
+    const configObj = config as Record<string, unknown>;
     return (
-      typeof config === 'object' &&
-      typeof config.main === 'string' &&
-      typeof config.chest === 'string' &&
-      typeof config.sides === 'string' &&
-      typeof config.arms === 'string' &&
-      typeof config.legs === 'string' &&
-      typeof config.knees === 'string' &&
-      typeof config.sheins === 'string' &&
-      typeof config.logo_leva === 'string' &&
-      typeof config.logo_chest === 'string' &&
-      typeof config.logo_desna === 'string' &&
-      typeof config.logo_back === 'string'
+      typeof configObj.main === 'string' &&
+      typeof configObj.chest === 'string' &&
+      typeof configObj.sides === 'string' &&
+      typeof configObj.arms === 'string' &&
+      typeof configObj.legs === 'string' &&
+      typeof configObj.knees === 'string' &&
+      typeof configObj.sheins === 'string' &&
+      typeof configObj.logo_leva === 'string' &&
+      typeof configObj.logo_chest === 'string' &&
+      typeof configObj.logo_desna === 'string' &&
+      typeof configObj.logo_back === 'string'
     );
   }
 }

@@ -1,8 +1,12 @@
 'use client';
 
-import React from 'react';
+import React, { Suspense } from 'react';
 import GloveConfigurator from '@/components/GloveConfigurator';
 
 export default function GlovesPage() {
-  return <GloveConfigurator />;
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <GloveConfigurator />
+    </Suspense>
+  );
 }
