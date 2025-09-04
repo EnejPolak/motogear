@@ -58,7 +58,7 @@ function GloveModel({ configuration, onReady }: { configuration: GloveConfigurat
 }
 
 export default function GloveScene3D({ configuration }: GloveSceneProps) {
-  const controlsRef = useRef<OrbitControls>(null);
+  const controlsRef = useRef<typeof OrbitControls>(null);
   const [cameraProps, setCameraProps] = useState<{ pos: [number, number, number]; dist: number; target: [number, number, number] } | null>(null);
 
   const handleModelReady = (center: THREE.Vector3, radius: number) => {
