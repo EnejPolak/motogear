@@ -22,6 +22,16 @@ export function useConfigurator() {
           console.error('Error loading configuration:', error);
         }
       }
+      // Load textures (optional persistence)
+      const savedTextures = localStorage.getItem('moto-textures');
+      if (savedTextures) {
+        try {
+          const parsedTextures = JSON.parse(savedTextures);
+          setTextures(parsedTextures);
+        } catch (error) {
+          console.error('Error loading textures:', error);
+        }
+      }
     }
   }, []);
 
@@ -31,6 +41,17 @@ export function useConfigurator() {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(configuration));
     }
   }, [configuration]);
+
+  // Save textures to localStorage whenever they change
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      try {
+        localStorage.setItem('moto-textures', JSON.stringify(textures));
+      } catch (error) {
+        console.error('Error saving textures:', error);
+      }
+    }
+  }, [textures]);
 
   const activePartIndex = SUIT_PARTS.indexOf(activePart);
 
@@ -46,10 +67,16 @@ export function useConfigurator() {
   }, [activePart, updatePartColor]);
 
   const updatePartTexture = useCallback((part: SuitPart, textureUrl: string | null) => {
-    setTextures(prev => ({
-      ...prev,
-      [part]: textureUrl
-    }));
+    setTextures(prev => {
+      if (textureUrl === null) {
+        const { [part]: _removed, ...rest } = prev;
+        return rest; // remove key entirely
+      }
+      return {
+        ...prev,
+        [part]: textureUrl
+      };
+    });
   }, []);
 
   const navigatePart = useCallback((direction: 'prev' | 'next') => {

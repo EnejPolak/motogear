@@ -69,8 +69,8 @@ export const DEFAULT_CONFIGURATION: SuitConfiguration = {
   legs: '#0B0B0B',
   knees: '#1F2937',
   sheins: '#374151',
-  logo_leva: 'transparent',
-  logo_chest: 'transparent',
-  logo_desna: 'transparent',
-  logo_back: 'transparent'
+  logo_leva: '#374151',
+  logo_chest: '#374151',
+  logo_desna: '#374151',
+  logo_back: '#374151'
 };

@@ -20,7 +20,7 @@ export default function Configurator() {
     resetConfiguration
   } = useConfigurator();
 
-  const handleTextureUpload = (part: string, imageUrl: string) => {
+  const handleTextureUpload = (part: string, imageUrl: string | null) => {
     updatePartTexture(part as any, imageUrl);
   };
 
@@ -68,6 +68,7 @@ export default function Configurator() {
         onPartChange={navigatePart}
         onColorSelect={updateActivePartColor}
         onTextureUpload={handleTextureUpload}
+        textures={textures}
       />
 
 
