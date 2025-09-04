@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { MaterialColors, DEFAULT_COLORS, PRESET_COLORS, ConfigManager } from '@/models/config';
+import { MaterialColors, PRESET_COLORS, ConfigManager } from '@/models/config';
 import { MATERIAL_NAMES, MATERIAL_DESCRIPTIONS } from '@/models/materialNames';
 
 interface ConfigPanelProps {

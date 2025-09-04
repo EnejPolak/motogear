@@ -3,7 +3,7 @@
 import React, { Suspense } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls, useGLTF } from '@react-three/drei';
-import * as THREE from 'three';
+// import * as THREE from 'three';
 
 // 3D Model Component
 function ShoesModel() {

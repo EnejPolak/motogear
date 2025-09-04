@@ -1,7 +1,7 @@
 'use client';
 
 import React, { Suspense, useEffect, useRef, useState } from 'react';
-import { Canvas, useThree } from '@react-three/fiber';
+import { Canvas } from '@react-three/fiber';
 import { OrbitControls, useGLTF, Environment } from '@react-three/drei';
 import * as THREE from 'three';
 import { GloveConfiguration } from '@/types/glove';
@@ -58,7 +58,7 @@ function GloveModel({ configuration, onReady }: { configuration: GloveConfigurat
 }
 
 export default function GloveScene3D({ configuration }: GloveSceneProps) {
-  const controlsRef = useRef<any>(null);
+  const controlsRef = useRef<OrbitControls>(null);
   const [cameraProps, setCameraProps] = useState<{ pos: [number, number, number]; dist: number; target: [number, number, number] } | null>(null);
 
   const handleModelReady = (center: THREE.Vector3, radius: number) => {

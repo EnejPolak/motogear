@@ -114,7 +114,7 @@ export class ConfigManager {
     return null;
   }
 
-  private static isValidConfig(config: any): config is MaterialColors {
+  private static isValidConfig(config: unknown): config is MaterialColors {
     return (
       typeof config === 'object' &&
       typeof config.main === 'string' &&

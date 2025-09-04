@@ -39,7 +39,7 @@ function ShoesModel({ configuration, onReady }: { configuration: ShoesConfigurat
 }
 
 export default function ShoesScene3D({ configuration }: ShoesSceneProps) {
-  const controlsRef = useRef<any>(null);
+  const controlsRef = useRef<OrbitControls>(null);
   const [cameraProps, setCameraProps] = useState<{ pos: [number, number, number]; dist: number; target: [number, number, number] } | null>(null);
 
   const handleReady = (center: THREE.Vector3, radius: number) => {

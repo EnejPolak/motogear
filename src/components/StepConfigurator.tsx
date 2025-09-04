@@ -49,17 +49,17 @@ export default function StepConfigurator({
     onColorChange(currentMaterial, color);
   };
 
-  const nextStep = () => {
-    if (currentStep < STEP_ORDER.length - 1) {
-      onStepChange(currentStep + 1);
-    }
-  };
+  // const nextStep = () => {
+  //   if (currentStep < STEP_ORDER.length - 1) {
+  //     onStepChange(currentStep + 1);
+  //   }
+  // };
 
-  const prevStep = () => {
-    if (currentStep > 0) {
-      onStepChange(currentStep - 1);
-    }
-  };
+  // const prevStep = () => {
+  //   if (currentStep > 0) {
+  //     onStepChange(currentStep - 1);
+  //   }
+  // };
 
   return (
     <div className="fixed bottom-0 left-0 right-0 bg-black bg-opacity-90 backdrop-blur-sm z-50">

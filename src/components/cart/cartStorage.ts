@@ -3,9 +3,9 @@ export type CartItem = {
   kind: 'suit' | 'glove' | 'boot';
   name: string;
   price: number;
-  configuration?: any;
-  measurements?: any;
-  sizeInfo?: any;
+  configuration?: Record<string, unknown>;
+  measurements?: Record<string, unknown>;
+  sizeInfo?: Record<string, unknown>;
   createdAt: number;
 };
 

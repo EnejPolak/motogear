@@ -14,7 +14,7 @@ interface ShoesBottomPanelProps {
 }
 
 export default function ShoesBottomPanel({
-  activePart,
+  activePart: _activePart, // eslint-disable-line @typescript-eslint/no-unused-vars
   activePartIndex,
   totalParts,
   selectedColor,

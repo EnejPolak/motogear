@@ -1,4 +1,4 @@
-import type { MaterialColors } from './config';
+// import type { MaterialColors } from './config';
 
 export const MATERIAL_NAMES = {
   main: 'Body',

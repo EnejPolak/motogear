@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useMemo, useRef, useState } from 'react';
+import Image from 'next/image';
 import { SuitPart, PART_LABELS, COLOR_PALETTE } from '@/types/configurator';
 import ColorSwatch from './ColorSwatch';
 
@@ -120,9 +121,11 @@ export default function BottomPanel({
             {/* Part Name in Center with optional thumbnail */}
             <div className="flex items-center gap-3 px-8">
               {activeIsLogo && activeTexture && (
-                <img
+                <Image
                   src={activeTexture}
                   alt={`Preview of uploaded logo for ${PART_LABELS[activePart]}`}
+                  width={40}
+                  height={40}
                   className="w-10 h-10 rounded-sm object-contain bg-white/10 backdrop-blur-md border border-white/30 shadow-lg"
                 />
               )}
@@ -194,14 +197,16 @@ export default function BottomPanel({
 
                 {activeTexture && (
                   <div className="flex items-center gap-3">
-                    <img
+                    <Image
                       src={activeTexture}
                       alt={`Preview of uploaded logo for ${PART_LABELS[activePart]}`}
+                      width={80}
+                      height={80}
                       className="w-20 h-20 object-contain rounded-lg bg-slate-700/50 border border-slate-500/30 shadow-lg"
                     />
                     <button
                       onClick={() => {
-                        onTextureUpload && onTextureUpload(activePart, null);
+                        onTextureUpload?.(activePart, null);
                         setStatusMsg(`Logo removed from ${PART_LABELS[activePart]}`);
                         if (fileInputRef.current) fileInputRef.current.value = '';
                       }}

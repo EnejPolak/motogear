@@ -173,7 +173,7 @@ export default function SuitShowcase() {
       <div className="relative pb-32">
         <div className="mx-auto max-w-[1440px] px-8 md:px-16">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {suitTypes.map((suit, index) => (
+            {suitTypes.map((suit) => (
               <div key={suit.id} className="group relative">
                 {/* Premium Card Container */}
                 <div className="relative bg-gradient-to-br from-slate-800/60 via-slate-800/40 to-slate-900/60 rounded-3xl p-6 md:p-8 border border-slate-700/40 shadow-2xl backdrop-blur-xl overflow-hidden h-full">

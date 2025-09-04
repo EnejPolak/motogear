@@ -69,7 +69,7 @@ export function useConfigurator() {
   const updatePartTexture = useCallback((part: SuitPart, textureUrl: string | null) => {
     setTextures(prev => {
       if (textureUrl === null) {
-        const { [part]: _removed, ...rest } = prev;
+        const { [part]: _removed, ...rest } = prev; // eslint-disable-line @typescript-eslint/no-unused-vars
         return rest; // remove key entirely
       }
       return {

@@ -75,7 +75,7 @@ function createContainCanvasTexture(srcUrl: string, size: number, gl: THREE.WebG
       texture.wrapT = THREE.ClampToEdgeWrapping;
       texture.repeat.set(1, 1);
       texture.offset.set(0, 0);
-      texture.anisotropy = Math.min((gl.capabilities as any).getMaxAnisotropy?.() ?? 8, 8);
+      texture.anisotropy = Math.min(gl.capabilities.getMaxAnisotropy?.() ?? 8, 8);
 
       resolve(texture);
     };
@@ -84,37 +84,37 @@ function createContainCanvasTexture(srcUrl: string, size: number, gl: THREE.WebG
   });
 }
 
-function computeUvExtents(geometry: THREE.BufferGeometry) {
-  const uv = geometry.attributes.uv as THREE.BufferAttribute | undefined;
-  if (!uv) return null;
-  let uMin = Infinity, vMin = Infinity, uMax = -Infinity, vMax = -Infinity;
-  for (let i = 0; i < uv.count; i++) {
-    const u = uv.getX(i);
-    const v = uv.getY(i);
-    if (u < uMin) uMin = u;
-    if (v < vMin) vMin = v;
-    if (u > uMax) uMax = u;
-    if (v > vMax) vMax = v;
-  }
-  return { uMin, vMin, uMax, vMax };
-}
+// function computeUvExtents(geometry: THREE.BufferGeometry) {
+//   const uv = geometry.attributes.uv as THREE.BufferAttribute | undefined;
+//   if (!uv) return null;
+//   let uMin = Infinity, vMin = Infinity, uMax = -Infinity, vMax = -Infinity;
+//   for (let i = 0; i < uv.count; i++) {
+//     const u = uv.getX(i);
+//     const v = uv.getY(i);
+//     if (u < uMin) uMin = u;
+//     if (v < vMin) vMin = v;
+//     if (u > uMax) uMax = u;
+//     if (v > vMax) vMax = v;
+//   }
+//   return { uMin, vMin, uMax, vMax };
+// }
 
-function applyUvRectToMap(map: THREE.Texture, geometry: THREE.BufferGeometry) {
-  const rect = computeUvExtents(geometry);
-  if (!rect) return;
-  const width = Math.max(1e-6, rect.uMax - rect.uMin);
-  const height = Math.max(1e-6, rect.vMax - rect.vMin);
-  map.repeat.set(1 / width, 1 / height);
-  map.offset.set(-rect.uMin / width, -rect.vMin / height);
-  map.needsUpdate = true;
-}
+// function applyUvRectToMap(map: THREE.Texture, geometry: THREE.BufferGeometry) {
+//   const rect = computeUvExtents(geometry);
+//   if (!rect) return;
+//   const width = Math.max(1e-6, rect.uMax - rect.uMin);
+//   const height = Math.max(1e-6, rect.vMax - rect.vMin);
+//   map.repeat.set(1 / width, 1 / height);
+//   map.offset.set(-rect.uMin / width, -rect.vMin / height);
+//   map.needsUpdate = true;
+// }
 
-function resetMapTransform(material: THREE.MeshStandardMaterial) {
-  if (material.map) {
-    material.map.repeat.set(1, 1);
-    material.map.offset.set(0, 0);
-  }
-}
+// function resetMapTransform(material: THREE.MeshStandardMaterial) {
+//   if (material.map) {
+//     material.map.repeat.set(1, 1);
+//     material.map.offset.set(0, 0);
+//   }
+// }
 
 function SuitModel({ configuration, textures }: { configuration: SuitConfiguration; textures: { [key: string]: string | null } }) {
   const { scene } = useGLTF('/models/suit.glb');
@@ -126,9 +126,9 @@ function SuitModel({ configuration, textures }: { configuration: SuitConfigurati
     // Clear previous decals
     while (decalsRef.current.children.length) {
       const m = decalsRef.current.children.pop() as THREE.Mesh;
-      if (m && (m as any).material) {
-        const mat = (m as any).material as THREE.Material;
-        if ((mat as any).map) (mat as any).map.dispose();
+      if (m && m.material) {
+        const mat = m.material as THREE.Material;
+        if ('map' in mat && mat.map) mat.map.dispose();
         mat.dispose();
       }
       m?.geometry.dispose();
@@ -141,11 +141,11 @@ function SuitModel({ configuration, textures }: { configuration: SuitConfigurati
 
       scene.traverse((child) => {
         if (child instanceof THREE.Mesh) {
-          const materialAny = child.material as any;
-          const materialName = (materialAny?.name || '').toLowerCase();
+          const material = child.material as THREE.MeshStandardMaterial;
+          const materialName = (material?.name || '').toLowerCase();
           const isLogo = materialName.startsWith('logo');
 
-          if (!materialAny) return;
+          if (!material) return;
 
           // Find matching logo texture
           const entry = Object.entries(textures).find(([part, textureUrl]) => textureUrl && (materialName === part || materialName.includes(part)));
@@ -156,10 +156,10 @@ function SuitModel({ configuration, textures }: { configuration: SuitConfigurati
 
             if (USE_DECALS) {
               // Remove underlying map to avoid UV artifacts
-              if (materialAny instanceof THREE.MeshStandardMaterial) {
-                if (materialAny.map) {
-                  materialAny.map.dispose();
-                  materialAny.map = null;
+              if (material instanceof THREE.MeshStandardMaterial) {
+                if (material.map) {
+                  material.map.dispose();
+                  material.map = null;
                 }
               }
 
@@ -174,12 +174,12 @@ function SuitModel({ configuration, textures }: { configuration: SuitConfigurati
                   const part = ['logo_back','logo_chest','logo_leva','logo_desna','logo_left','logo_right'].find(p => materialName.includes(p)) || null;
 
                   // Before placing decal, set base mesh color to chest color so padding blends in
-                  if (materialAny instanceof THREE.MeshStandardMaterial) {
+                  if (material instanceof THREE.MeshStandardMaterial) {
                     try {
-                      materialAny.transparent = false;
-                      materialAny.opacity = 1.0;
-                      materialAny.color.setHex(parseInt(configuration.chest.replace('#', ''), 16));
-                      materialAny.needsUpdate = true;
+                      material.transparent = false;
+                      material.opacity = 1.0;
+                      material.color.setHex(parseInt(configuration.chest.replace('#', ''), 16));
+                      material.needsUpdate = true;
                     } catch {}
                   }
 
@@ -230,14 +230,14 @@ function SuitModel({ configuration, textures }: { configuration: SuitConfigurati
             }
 
             // Direct map fallback (if decals disabled)
-            if (materialAny instanceof THREE.MeshStandardMaterial) {
+            if (material instanceof THREE.MeshStandardMaterial) {
               createContainCanvasTexture(textureUrl as string, targetSize, gl)
                 .then((tex) => {
-                  if (materialAny.map) materialAny.map.dispose();
-                  materialAny.map = tex;
-                  materialAny.transparent = true;
-                  materialAny.opacity = 1.0;
-                  materialAny.needsUpdate = true;
+                  if (material.map) material.map.dispose();
+                  material.map = tex;
+                  material.transparent = true;
+                  material.opacity = 1.0;
+                  material.needsUpdate = true;
                 })
                 .catch((e) => console.error('Texture creation failed:', e));
               return;
@@ -245,24 +245,24 @@ function SuitModel({ configuration, textures }: { configuration: SuitConfigurati
           }
 
           // No texture provided: restore base color and clear map
-          if (materialAny instanceof THREE.MeshStandardMaterial) {
-            if (materialAny.map) {
-              materialAny.map.dispose();
-              materialAny.map = null;
-              materialAny.needsUpdate = true;
+          if (material instanceof THREE.MeshStandardMaterial) {
+            if (material.map) {
+              material.map.dispose();
+              material.map = null;
+              material.needsUpdate = true;
             }
 
             const colorEntry = Object.entries(configuration).find(([part]) => materialName === part || materialName.includes(part) || (part.startsWith('logo') && materialName.includes('logo')));
             if (colorEntry) {
               const [, color] = colorEntry;
               if (color === 'transparent') {
-                materialAny.transparent = true;
-                materialAny.opacity = 0.0;
-                materialAny.color.setHex(0xFFFFFF);
+                material.transparent = true;
+                material.opacity = 0.0;
+                material.color.setHex(0xFFFFFF);
               } else {
-                materialAny.transparent = false;
-                materialAny.opacity = 1.0;
-                materialAny.color.setHex(parseInt(color.replace('#', ''), 16));
+                material.transparent = false;
+                material.opacity = 1.0;
+                material.color.setHex(parseInt(color.replace('#', ''), 16));
               }
             }
           }

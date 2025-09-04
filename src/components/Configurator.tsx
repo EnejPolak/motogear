@@ -39,11 +39,11 @@ export default function Configurator() {
     updateActivePartColor,
     updatePartTexture,
     navigatePart,
-    resetConfiguration
+    resetConfiguration: _resetConfiguration // eslint-disable-line @typescript-eslint/no-unused-vars
   } = useConfigurator();
 
   const handleTextureUpload = (part: string, imageUrl: string | null) => {
-    updatePartTexture(part as any, imageUrl);
+    updatePartTexture(part as keyof typeof configuration, imageUrl);
   };
 
   const handleShare = () => {
