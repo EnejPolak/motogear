@@ -97,7 +97,7 @@ export default function BottomPanel({
   };
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 bg-[#0B1220]/90 backdrop-blur-md border-t border-[#1F2937]">
+    <div className="fixed bottom-0 left-0 right-0 bg-white/5 backdrop-blur-2xl border-t border-white/20 shadow-2xl shadow-black/50">
       <div className="max-w-7xl mx-auto px-6 py-8"> 
         {/* Live status for screen readers */}
         <div className="sr-only" role="status" aria-live="polite">{statusMsg}</div>
@@ -109,7 +109,7 @@ export default function BottomPanel({
             <button
               onClick={() => onPartChange('prev')}
               disabled={activePartIndex === 0}
-              className="p-3 rounded-full bg-[#0B1220] border border-[#1F2937] text-[#E5E7EB] hover:bg-[#1F2937] disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+              className="p-3 rounded-full bg-white/10 backdrop-blur-md border border-white/30 text-white hover:bg-white/20 hover:border-white/40 disabled:opacity-30 disabled:cursor-not-allowed transition-all duration-200 shadow-lg"
               aria-label="Previous part"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -123,16 +123,16 @@ export default function BottomPanel({
                 <img
                   src={activeTexture}
                   alt={`Preview of uploaded logo for ${PART_LABELS[activePart]}`}
-                  className="w-10 h-10 rounded-sm object-contain bg-[#0B1220] border border-[#374151]"
+                  className="w-10 h-10 rounded-sm object-contain bg-white/10 backdrop-blur-md border border-white/30 shadow-lg"
                 />
               )}
-              <h3 className="text-xl font-semibold text-[#E5E7EB]">{PART_LABELS[activePart]}</h3>
+              <h3 className="text-xl font-semibold text-slate-100">{PART_LABELS[activePart]}</h3>
             </div>
             
             <button
               onClick={() => onPartChange('next')}
               disabled={activePartIndex === totalParts - 1}
-              className="p-3 rounded-full bg-[#0B1220] border border-[#1F2937] text-[#E5E7EB] hover:bg-[#1F2937] disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+              className="p-3 rounded-full bg-white/10 backdrop-blur-md border border-white/30 text-white hover:bg-white/20 hover:border-white/40 disabled:opacity-30 disabled:cursor-not-allowed transition-all duration-200 shadow-lg"
               aria-label="Next part"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -163,8 +163,8 @@ export default function BottomPanel({
         {/* Logo Upload UI - Only show for logo parts */}
         {activeIsLogo && (
           <div className="flex justify-center mt-8 px-8">
-            <div className="bg-[#1F2937] rounded-lg p-4 border border-[#374151] max-w-md w-full">
-              <h4 className="text-[#E5E7EB] text-base font-medium mb-3 text-center">Upload Logo</h4>
+            <div className="bg-white/5 rounded-xl p-6 border border-white/20 max-w-md w-full shadow-2xl backdrop-blur-xl">
+              <h4 className="text-slate-100 text-base font-medium mb-4 text-center">Upload Logo</h4>
               <div className="flex items-center justify-center gap-4">
                 <div className="text-center">
                   <input
@@ -186,7 +186,7 @@ export default function BottomPanel({
                   />
                   <label
                     htmlFor={`texture-upload-${activePart}`}
-                    className="px-4 py-2 bg-[#7C3AED] hover:bg-[#6D28D9] text-white rounded-lg cursor-pointer transition-colors text-sm font-medium inline-block"
+                    className="px-4 py-2 bg-gradient-to-r from-[#FF5E3A] to-[#FF3C00] hover:from-[#FF7A5C] hover:to-[#FF5120] text-white rounded-lg cursor-pointer transition-colors text-sm font-medium inline-block"
                   >
                     Upload Logo
                   </label>
@@ -197,7 +197,7 @@ export default function BottomPanel({
                     <img
                       src={activeTexture}
                       alt={`Preview of uploaded logo for ${PART_LABELS[activePart]}`}
-                      className="w-20 h-20 object-contain rounded bg-[#0B1220] border border-[#374151]"
+                      className="w-20 h-20 object-contain rounded-lg bg-slate-700/50 border border-slate-500/30 shadow-lg"
                     />
                     <button
                       onClick={() => {
@@ -205,7 +205,7 @@ export default function BottomPanel({
                         setStatusMsg(`Logo removed from ${PART_LABELS[activePart]}`);
                         if (fileInputRef.current) fileInputRef.current.value = '';
                       }}
-                      className="px-3 py-2 text-sm bg-[#0B1220] hover:bg-[#111827] text-[#E5E7EB] border border-[#374151] rounded"
+                      className="px-3 py-2 text-sm bg-white/10 backdrop-blur-md hover:bg-white/20 text-white border border-white/30 rounded-lg transition-all duration-200 shadow-lg"
                       aria-label={`Remove logo from ${PART_LABELS[activePart]}`}
                     >
                       Remove
@@ -213,7 +213,7 @@ export default function BottomPanel({
                   </div>
                 )}
               </div>
-              <p className="text-[#9CA3AF] text-xs text-center mt-3">PNG with transparency works best</p>
+              <p className="text-white/80 text-xs text-center mt-3">PNG with transparency works best</p>
             </div>
           </div>
         )}

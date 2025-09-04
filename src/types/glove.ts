@@ -4,7 +4,8 @@ export interface GloveConfiguration {
   fixed: string; // non-customizable (always black)
 }
 
-export const GLOVE_PARTS: Array<keyof GloveConfiguration> = ['main', 'paddings', 'fixed'];
+// Only expose customizable parts in navigation/UI
+export const GLOVE_PARTS: Array<keyof GloveConfiguration> = ['main', 'paddings'];
 
 export const GLOVE_PART_LABELS: Record<keyof GloveConfiguration, string> = {
   main: 'Main',

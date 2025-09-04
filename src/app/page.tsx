@@ -1,5 +1,16 @@
-import Configurator from '@/components/Configurator';
+
+import Hero from '@/components/Hero';
+import SuitIntroduction from '@/components/SuitIntroduction';
+import GlovesIntroduction from '@/components/GlovesIntroduction';
+import ShoesIntroduction from '@/components/ShoesIntroduction';
 
 export default function Home() {
-  return <Configurator />;
+  return (
+    <>
+      <Hero />
+      <SuitIntroduction />
+      <GlovesIntroduction />
+      <ShoesIntroduction />
+    </>
+  );
 }

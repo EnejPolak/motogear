@@ -68,7 +68,7 @@ export default function GloveScene3D({ configuration }: GloveSceneProps) {
 
   return (
     <div className="w-full h-full">
-      <Canvas camera={{ position: cameraProps ? cameraProps.pos : [0, 0, 3.2], fov: 75 }} style={{ background: '#0F172A' }}>
+      <Canvas camera={{ position: cameraProps ? cameraProps.pos : [0, 0, 3.2], fov: 75 }} style={{ background: 'transparent' }}>
         <ambientLight intensity={0.7} />
         <directionalLight position={[8, 12, 6]} intensity={1.2} />
         <Suspense fallback={null}>
