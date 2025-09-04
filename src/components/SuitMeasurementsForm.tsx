@@ -35,6 +35,8 @@ const unitOptions = [
   { key: 'in', label: 'inch' },
 ];
 
+import { Cart } from '@/components/cart/cartStorage';
+
 export default function SuitMeasurementsForm() {
   const [units, setUnits] = useState<'cm' | 'in'>('cm');
   const [tightness, setTightness] = useState<'tight' | 'loose'>('tight');
@@ -62,12 +64,10 @@ export default function SuitMeasurementsForm() {
     e.preventDefault();
     const missing = validate();
     if (missing.length) {
-      alert('Please fill all measurements before continuing.');
       return;
     }
     const payload = { units, tightness, notes, measurements: values };
     localStorage.setItem('suit-measurements', JSON.stringify(payload));
-    alert('Measurements saved! Our tailor will contact you.');
   };
 
   return (
@@ -129,12 +129,24 @@ export default function SuitMeasurementsForm() {
         ))}
       </div>
 
-      <div className="flex justify-end mt-8">
+      <div className="flex justify-end mt-8 gap-3">
         <button
           type="submit"
-          className="px-6 py-3 rounded-xl bg-gradient-to-r from-[#FF5E3A] to-[#FF3C00] font-semibold shadow-2xl hover:from-[#FF7A5C] hover:to-[#FF5120] transition"
+          className="px-6 py-3 rounded-xl bg-white/10 border border-white/20 font-semibold hover:bg-white/20 transition"
         >
           Save measurements
+        </button>
+        <button
+          type="button"
+          onClick={() => {
+            const payload = { units, tightness, notes, measurements: values };
+            localStorage.setItem('suit-measurements', JSON.stringify(payload));
+            Cart.add({ kind: 'suit', name: 'Custom Racing Suit', price: 700, configuration: null, measurements: payload });
+            window.location.assign('/cart');
+          }}
+          className="px-6 py-3 rounded-xl bg-gradient-to-r from-[#FF5E3A] to-[#FF3C00] font-semibold shadow-2xl hover:from-[#FF7A5C] hover:to-[#FF5120] transition"
+        >
+          Add to cart
         </button>
       </div>
     </form>

@@ -39,8 +39,9 @@ export default function GloveConfigurator() {
   };
 
   const handleDone = () => {
-    // For demo purposes, show an alert
-    alert('Configuration saved!');
+    try {
+      localStorage.setItem('glove-config-final', JSON.stringify({ configuration }));
+    } catch {}
   };
 
   return (

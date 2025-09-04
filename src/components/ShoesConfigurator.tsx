@@ -39,8 +39,9 @@ export default function ShoesConfigurator() {
   };
 
   const handleDone = () => {
-    // For demo purposes, show an alert
-    alert('Configuration saved!');
+    try {
+      localStorage.setItem('shoes-config-final', JSON.stringify({ configuration }));
+    } catch {}
   };
 
   return (

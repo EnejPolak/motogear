@@ -24,6 +24,8 @@ const chart = [
 
 function toCm(v: number, unit: Unit) { return unit === 'cm' ? v : v * 2.54; }
 
+import { Cart } from './cart/cartStorage';
+
 export default function BootSizeForm() {
   const [unit, setUnit] = useState<Unit>('cm');
   const [length, setLength] = useState('');
@@ -42,7 +44,6 @@ export default function BootSizeForm() {
   const save = (e: React.FormEvent) => {
     e.preventDefault();
     localStorage.setItem('boot-size', JSON.stringify({ unit, length, recommendation }));
-    alert('Boot size saved: ' + (recommendation ?? 'N/A'));
   };
 
   return (
@@ -66,8 +67,20 @@ export default function BootSizeForm() {
         <div className="text-2xl font-bold">{recommendation ?? '—'}</div>
       </div>
 
-      <div className="flex justify-end">
-        <button type="submit" className="px-6 py-3 rounded-xl bg-gradient-to-r from-[#FF5E3A] to-[#FF3C00] font-semibold shadow-2xl hover:from-[#FF7A5C] hover:to-[#FF5120] transition">Save size</button>
+      <div className="flex justify-end gap-3">
+        <button type="submit" className="px-6 py-3 rounded-xl bg-white/10 border border-white/20 font-semibold hover:bg-white/20 transition">Save size</button>
+        <button
+          type="button"
+          onClick={() => {
+            const payload = { unit, length, recommendation };
+            localStorage.setItem('boot-size', JSON.stringify(payload));
+            Cart.add({ kind: 'boot', name: 'Racing Boots Pro', price: 199, sizeInfo: payload });
+            window.location.assign('/cart');
+          }}
+          className="px-6 py-3 rounded-xl bg-gradient-to-r from-[#FF5E3A] to-[#FF3C00] font-semibold shadow-2xl hover:from-[#FF7A5C] hover:to-[#FF5120] transition"
+        >
+          Add to cart
+        </button>
       </div>
     </form>
   );
