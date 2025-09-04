@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useMemo, useRef, useState } from 'react';
-import Image from 'next/image';
+import NextImage from 'next/image';
 import { SuitPart, PART_LABELS, COLOR_PALETTE } from '@/types/configurator';
 import ColorSwatch from './ColorSwatch';
 
@@ -121,7 +121,7 @@ export default function BottomPanel({
             {/* Part Name in Center with optional thumbnail */}
             <div className="flex items-center gap-3 px-8">
               {activeIsLogo && activeTexture && (
-                <Image
+                <NextImage
                   src={activeTexture}
                   alt={`Preview of uploaded logo for ${PART_LABELS[activePart]}`}
                   width={40}
@@ -197,7 +197,7 @@ export default function BottomPanel({
 
                 {activeTexture && (
                   <div className="flex items-center gap-3">
-                    <Image
+                    <NextImage
                       src={activeTexture}
                       alt={`Preview of uploaded logo for ${PART_LABELS[activePart]}`}
                       width={80}
