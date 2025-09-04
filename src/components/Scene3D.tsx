@@ -131,7 +131,7 @@ function SuitModel({ configuration, textures }: { configuration: SuitConfigurati
         if ('map' in mat && mat.map) mat.map.dispose();
         mat.dispose();
       }
-      m?.geometry.dispose();
+      if (m) m.geometry.dispose();
     }
   }, [textures]);
 

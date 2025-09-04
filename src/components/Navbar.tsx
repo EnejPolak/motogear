@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
+import NextImage from 'next/image';
 
 export default function Navbar() {
   return (
@@ -11,7 +11,7 @@ export default function Navbar() {
         <div className="flex items-center justify-between gap-6">
           {/* Logo */}
           <Link href="/" className="flex items-center">
-            <Image
+            <NextImage
               src="/pictures/ChatGPT%20Image%20Sep%204%2C%202025%2C%2006_21_20%20PM.png"
               alt="GRIT logo"
               width={40}
