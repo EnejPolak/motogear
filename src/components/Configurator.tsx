@@ -93,18 +93,18 @@ export default function Configurator() {
         />
       </div>
 
-      {/* Main 3D View */}
-      <div className="pt-20 pb-48 h-screen relative z-[1]">
-        {/* Professional ambient lighting effects */}
+      {/* Main 3D View - Mobile optimized */}
+      <div className="pt-20 pb-48 h-screen relative z-[1] touch-manipulation">
+        {/* Professional ambient lighting effects - reduced on mobile */}
         <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-[#FF3C00]/8 to-orange-500/6 rounded-full blur-3xl" />
-          <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-gradient-to-l from-slate-600/10 to-zinc-500/8 rounded-full blur-3xl" />
+          <div className="absolute top-1/4 left-1/4 w-48 md:w-96 h-48 md:h-96 bg-gradient-to-r from-[#FF3C00]/8 to-orange-500/6 rounded-full blur-3xl" />
+          <div className="absolute bottom-1/4 right-1/4 w-40 md:w-80 h-40 md:h-80 bg-gradient-to-l from-slate-600/10 to-zinc-500/8 rounded-full blur-3xl" />
           <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-slate-600/30 to-transparent" />
         </div>
         <Scene3D configuration={configuration} textures={textures} />
       </div>
 
-      {/* Bottom Control Panel */}
+      {/* Bottom Control Panel - Mobile optimized */}
       <div className="relative z-10">
         <BottomPanel
           activePart={activePart}

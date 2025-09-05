@@ -14,7 +14,7 @@ export default function ColorSwatch({ color, name, isSelected, onClick }: ColorS
     <button
       onClick={onClick}
       className={`
-        relative w-10 h-10 rounded-full transition-all duration-200 hover:scale-105
+        relative w-8 h-8 md:w-10 md:h-10 rounded-full transition-all duration-200 hover:scale-105 touch-manipulation
         ${isSelected 
           ? 'ring-2 ring-[#7C3AED] ring-offset-1 ring-offset-[#111827]' 
           : 'hover:ring-2 hover:ring-white hover:ring-opacity-10'

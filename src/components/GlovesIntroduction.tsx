@@ -9,10 +9,14 @@ import { OrbitControls, useGLTF } from '@react-three/drei';
 function GlovesModel() {
   const { scene } = useGLTF('/models/gloves2.glb');
   
+  // Responsive scale based on screen size
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+  const scale = isMobile ? [1.2, 1.2, 1.2] : [1.8, 1.8, 1.8];
+  
   return (
     <primitive 
       object={scene} 
-      scale={[1.8, 1.8, 1.8]} 
+      scale={scale} 
       position={[0, -0.2, 0]}
       rotation={[0, Math.PI / 4, 0]}
     />

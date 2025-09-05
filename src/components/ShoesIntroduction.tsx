@@ -9,10 +9,14 @@ import { OrbitControls, useGLTF } from '@react-three/drei';
 function ShoesModel() {
   const { scene } = useGLTF('/models/shoes.glb');
   
+  // Responsive scale based on screen size
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+  const scale = isMobile ? [1.0, 1.0, 1.0] : [1.5, 1.5, 1.5];
+  
   return (
     <primitive 
       object={scene} 
-      scale={[1.5, 1.5, 1.5]} 
+      scale={scale} 
       position={[0, -0.3, 0]}
       rotation={[0, Math.PI / 6, 0]}
     />

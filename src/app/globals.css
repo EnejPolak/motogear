@@ -18,6 +18,33 @@ body {
   font-family: Arial, Helvetica, sans-serif;
   min-height: 100vh;
   overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+  html {
+    touch-action: manipulation;
+  }
+  
+  body {
+    font-size: 16px; /* Prevent zoom on input focus on iOS */
+  }
+}
+
+/* Touch target improvements */
+.touch-manipulation {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Improved text truncation */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 /* Hide scrollbars but keep functionality */

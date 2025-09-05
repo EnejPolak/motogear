@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useMemo, useState } from 'react';
+import MeasurementModal from './MeasurementModal';
 
 type MeasurementField = {
   key: string;
@@ -42,6 +43,7 @@ export default function SuitMeasurementsForm() {
   const [tightness, setTightness] = useState<'tight' | 'loose'>('tight');
   const [notes, setNotes] = useState('');
   const [values, setValues] = useState<Record<string, string>>({});
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const requiredKeys = useMemo(() => new Set(fields.map(f => f.key)), []);
 
@@ -71,8 +73,20 @@ export default function SuitMeasurementsForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="bg-white/10 border border-white/20 rounded-2xl p-6 md:p-8 backdrop-blur-xl shadow-2xl">
-      <div className="grid md:grid-cols-3 gap-4 mb-6">
+    <>
+      <form onSubmit={handleSubmit} className="bg-white/10 border border-white/20 rounded-2xl p-6 md:p-8 backdrop-blur-xl shadow-2xl">
+        {/* See How Button */}
+        <div className="mb-6 text-center">
+          <button
+            type="button"
+            onClick={() => setIsModalOpen(true)}
+            className="px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-xl font-semibold hover:from-blue-700 hover:to-blue-800 transition-all duration-200 shadow-lg touch-manipulation"
+          >
+            📏 See How to Measure
+          </button>
+        </div>
+
+        <div className="grid md:grid-cols-3 gap-4 mb-6">
         <label className="flex flex-col gap-2">
           <span className="text-sm text-white/80">Units</span>
           <select
@@ -150,6 +164,15 @@ export default function SuitMeasurementsForm() {
         </button>
       </div>
     </form>
+
+    {/* Measurement Modal */}
+    <MeasurementModal
+      isOpen={isModalOpen}
+      onClose={() => setIsModalOpen(false)}
+      imageSrc="/pictures/suitMesurments.jpg"
+      title="How to Measure for Racing Suit"
+    />
+  </>
   );
 }
 

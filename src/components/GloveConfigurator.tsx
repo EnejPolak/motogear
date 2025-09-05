@@ -69,12 +69,12 @@ export default function GloveConfigurator() {
         />
       </div>
 
-      {/* Main 3D View */}
-      <div className="pt-20 pb-48 h-screen relative z-[1]">
+      {/* Main 3D View - Mobile optimized */}
+      <div className="pt-20 pb-48 h-screen relative z-[1] touch-manipulation">
         <GloveScene3D configuration={configuration} />
       </div>
 
-      {/* Bottom Control Panel */}
+      {/* Bottom Control Panel - Mobile optimized */}
       <div className="relative z-10">
         <GloveBottomPanel
           activePart={activePart}

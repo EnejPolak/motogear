@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useMemo, useState } from 'react';
+import MeasurementModal from './MeasurementModal';
 
 type Unit = 'cm' | 'in';
 
@@ -23,6 +24,7 @@ export default function GloveSizeForm() {
   const [unit, setUnit] = useState<Unit>('cm');
   const [width, setWidth] = useState('');
   const [length, setLength] = useState('');
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const recommendation = useMemo(() => {
     const w = parseFloat(width.replace(',', '.'));
@@ -53,8 +55,20 @@ export default function GloveSizeForm() {
   };
 
   return (
-    <form onSubmit={save} className="bg-white/10 border border-white/20 rounded-2xl p-6 md:p-8 backdrop-blur-xl shadow-2xl">
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+    <>
+      <form onSubmit={save} className="bg-white/10 border border-white/20 rounded-2xl p-6 md:p-8 backdrop-blur-xl shadow-2xl">
+        {/* See How Button */}
+        <div className="mb-6 text-center">
+          <button
+            type="button"
+            onClick={() => setIsModalOpen(true)}
+            className="px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-xl font-semibold hover:from-blue-700 hover:to-blue-800 transition-all duration-200 shadow-lg touch-manipulation"
+          >
+            📏 See How to Measure Gloves
+          </button>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
         <label className="flex flex-col gap-2">
           <span className="text-sm text-white/80">Units</span>
           <select value={unit} onChange={(e) => setUnit(e.target.value as Unit)} className="bg-black/40 border border-white/20 rounded-lg px-3 py-2">
@@ -93,6 +107,15 @@ export default function GloveSizeForm() {
         </button>
       </div>
     </form>
+
+    {/* Measurement Modal */}
+    <MeasurementModal
+      isOpen={isModalOpen}
+      onClose={() => setIsModalOpen(false)}
+      imageSrc="/pictures/gloveMesurment.jpg"
+      title="How to Measure for Racing Gloves"
+    />
+  </>
   );
 }
 
